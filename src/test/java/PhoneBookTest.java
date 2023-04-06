@@ -65,4 +65,27 @@ public class PhoneBookTest {
 
         Assertions.assertEquals(expect, actual);
     }
+
+    @Test
+    void findByNameDublicate(){
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Alex", "1234");
+        phoneBook.add("Alex", "4321");
+
+        String actual = phoneBook.findByName("Alex");
+        String expect = "1234";
+
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    void findByNameExist(){
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Higo", "2314");
+
+        String actual = phoneBook.findByName("Higo");
+        String expect = "2314";
+
+        Assertions.assertEquals(expect, actual);
+    }
 }
