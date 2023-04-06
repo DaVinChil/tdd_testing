@@ -1,12 +1,32 @@
 import org.example.PhoneBook;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 
 public class PhoneBookTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
+    }
 
     @Test
-    void addOneContact(){
+    public void addOneContact(){
         PhoneBook phoneBook = new PhoneBook();
 
         int actual = phoneBook.add("Alex", "139024932");
@@ -87,5 +107,25 @@ public class PhoneBookTest {
         String expect = "2314";
 
         Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    void printAllNamesSorted(){
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Ilya", "90234");
+        phoneBook.add("Sasha", "30924");
+        phoneBook.add("Dariya", "0293482");
+        phoneBook.add("Arseniy", "123283");
+        phoneBook.add("Mariya", "942482");
+
+        phoneBook.printAllNames();
+
+        String[] actual = outContent.toString().split("\n");
+        String[] expected = {"Arseniy", "Dariya", "Ilya", "Mariya", "Sasha"};
+
+        Assertions.assertEquals(expected.length, actual.length);
+        for(int i = 0; i < actual.length; i++){
+            Assertions.assertEquals(expected[i], actual[i]);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.TreeSet;
 
 public class PhoneBook {
     private HashMap<String, String> phoneList = new HashMap<>();
@@ -21,5 +22,9 @@ public class PhoneBook {
 
     public String findByName(String name){
         return phoneList.get(name);
+    }
+
+    public void printAllNames(){
+
     }
 }
