@@ -1,10 +1,12 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class PhoneBook {
-    private HashMap<String, String> phoneList = new HashMap<>();
+    private TreeMap<String, String> phoneList = new TreeMap<>();
     private HashMap<String, String> nameList = new HashMap<>();
 
     public int add(String name, String phone){
@@ -25,6 +27,6 @@ public class PhoneBook {
     }
 
     public void printAllNames(){
-
+        phoneList.keySet().forEach(System.out::println);
     }
 }

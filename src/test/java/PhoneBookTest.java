@@ -1,8 +1,5 @@
 import org.example.PhoneBook;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -111,6 +108,8 @@ public class PhoneBookTest {
 
     @Test
     void printAllNamesSorted(){
+        setUpStreams();
+
         PhoneBook phoneBook = new PhoneBook();
         phoneBook.add("Ilya", "90234");
         phoneBook.add("Sasha", "30924");
@@ -120,12 +119,14 @@ public class PhoneBookTest {
 
         phoneBook.printAllNames();
 
-        String[] actual = outContent.toString().split("\n");
+        String[] actual = outContent.toString().split("\r\n");
         String[] expected = {"Arseniy", "Dariya", "Ilya", "Mariya", "Sasha"};
 
         Assertions.assertEquals(expected.length, actual.length);
         for(int i = 0; i < actual.length; i++){
             Assertions.assertEquals(expected[i], actual[i]);
         }
+
+        restoreStreams();
     }
 }
